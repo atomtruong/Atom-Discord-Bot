@@ -1,8 +1,9 @@
 import discord
 import os
 import json
+from datetime import date
 
-from discord.ext import commands
+from discord.ext import tasks, commands
 from dotenv import load_dotenv
 from pretty_help import PrettyHelp, DefaultMenu
 
@@ -35,6 +36,8 @@ async def on_ready():
         activity=discord.Game(name="Python Bot Simulator")
     )
 
+    background_task.start()
+
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(data['welcomeChannel'])
@@ -51,6 +54,26 @@ async def on_message(message):
         else:
             await message.channel.send('Incorrect channel. Use in '
                                        + cmd_channel.mention)
+
+
+async def called_once_every_10second(channel: discord.TextChannel):
+    await channel.send("10Second")
+
+
+@tasks.loop(seconds=10.0)
+async def background_task():
+    now = date.today().weekday()
+    print(now)
+    with open(r'/app/config/config.json', 'r') \
+            as file:
+        announcement_channel = json.load(file)
+    await called_once_every_10second \
+        (announcement_channel['announcementChannel'])
+
+
+@bot.command(name='stop')
+async def stop_command():
+    background_task.stop()
 
 
 if __name__ == '__main__':
