@@ -71,7 +71,7 @@ async def on_message(message):
 async def called_once_every_tuesday(channel):
     global REMINDED
     channel = bot.get_channel(channel)
-    await channel.send(f"Weekly Reminder: @everyone. Meeting with TA!")
+    await channel.send(f"Weekly Reminder: @everyone TEST")
     REMINDED = True
 
 
@@ -79,7 +79,7 @@ async def called_once_every_tuesday(channel):
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    if now == 1:
+    if now == 4:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
                     as file:
