@@ -18,7 +18,7 @@ class FunCog(commands.Cog, name="Fun Commands", description="These commands"
 	@commands.command(name='tag', help='Tags a user if you are it. '
 								  'Ex: !tag @Atom')
 	async def tag_command(self, ctx, user: discord.User):
-		with open(r'/config/tag.json', 'r') \
+		with open(r'~/config/tag.json', 'r') \
 				as file:
 			it = json.load(file)
 		if ctx.author.id != it['it']:
