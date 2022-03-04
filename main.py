@@ -14,6 +14,7 @@ with open("/app/config/config.json", 'r') as file:
 
 TOKEN = data["token"]
 GUILD = os.getenv('DISCORD_GUILD')
+REMINDED = False
 
 bot = commands.Bot(command_prefix=data['prefix'], help_command=PrettyHelp())
 
@@ -57,28 +58,45 @@ async def on_message(message):
 
 
 async def called_once_every_tuesday(channel):
+    global REMINDED
     channel = bot.get_channel(channel)
-    print("Friday")
-    #await channel.send("10Second")
+    await channel.send(f"Weekly Reminder: tagged everyone. Meeting with TA!")
+    REMINDED = True
 
 
 @tasks.loop(seconds=10)
 async def background_task():
+    global REMINDED
     now = date.today().weekday()
     if now == 4:
-        with open(r'/app/config/config.json', 'r') \
-                as file:
-            announcement_channel = json.load(file)
-        await called_once_every_tuesday \
-            (announcement_channel['announcementChannel'])
+        if REMINDED is False:
+            with open(r'/app/config/config.json', 'r') \
+                    as file:
+                announcement_channel = json.load(file)
+            await called_once_every_tuesday \
+                (announcement_channel['announcementChannel'])
     else:
         print(f"Fail {now}")
+        REMINDED = False
 
 
-@bot.command(name='stop')
-async def stop_command(ctx):
-   background_task.stop()
+@bot.command(name='stopweekly')
+@bot.has_permissions(administrator=True)
+async def stop_weekly_command(ctx):
+    background_task.stop()
+    ctx.send("Successfully stopped weekly reminder.")
 
+@bot.command(name='startweekly')
+@bot.has_permissions(administrator=True)
+async def start_weekly_command(ctx):
+    background_task.start()
+    ctx.send("Successfully started weekly reminder.")
+
+@bot.command(name='resetremind')
+@bot.has_permissions(administrator=True)
+async def reset_remind_command(ctx):
+    global REMINDED
+    REMINDED = False
 
 if __name__ == '__main__':
     for filename in os.listdir('./cogs'):
