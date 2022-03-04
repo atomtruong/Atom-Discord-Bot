@@ -29,10 +29,11 @@ async def on_ready():
         if guild.name == GUILD:
             break
 
-    print(
-        f'{bot.user} is connected to the following guilds:\n'
-        f'{guild.name}(id: {guild.id})'
-    )
+    for guilds in guild:
+        print(
+            f'{bot.user} is connected to the following guilds:\n'
+            f'{guild.name}(id: {guild.id})'
+        )
 
     await bot.change_presence(
         activity=discord.Game(name="Python Bot Simulator")
@@ -71,7 +72,7 @@ async def on_message(message):
 async def called_once_every_tuesday(channel):
     global REMINDED
     channel = bot.get_channel(channel)
-    await channel.send(f"Weekly Reminder: @everyone TEST")
+    await channel.send(f"Weekly Reminder: @everyone TEST. Today is a Friday.")
     REMINDED = True
 
 
