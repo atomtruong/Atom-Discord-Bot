@@ -9,6 +9,7 @@ if day == 0:
 	print("Monday")
 elif day == 1:
 	print("Tuesday")
+
 elif day == 2:
 	print("Wednesday")
 elif day == 3:
