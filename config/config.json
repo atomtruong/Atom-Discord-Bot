@@ -1,6 +1,6 @@
 {
-    "token": "ODcxNTI3NjkyMDM2NjMyNTg3.YQcnaQ.3Gv2Avn50t7ivVgVnj94rkJqiHg",
+    "token": "ENTER_TOKEN_HERE",
     "prefix": "!",
-    "channel": 871533608542810132,
-    "welcomeChannel": 339622800060841986
+    "channel": "ENTER_CHANNEL_HERE",
+    "welcomeChannel": "ENTER_WELCOME_CHANNEL_HERE"
 }
