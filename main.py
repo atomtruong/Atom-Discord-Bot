@@ -52,7 +52,7 @@ async def on_message(message):
         data = json.load(file)
     cmd_channel = bot.get_channel(data['channel'])
     cmd_channel2 = bot.get_channel(data['channel2'])
-    print("Changed channel to " + cmd_channel)
+    print(f"Changed channel to {cmd_channel.mention}")
     if message.content.lower().startswith(data['prefix']):
         if message.channel.id == cmd_channel.id \
                 or message.channel.id == cmd_channel2:
