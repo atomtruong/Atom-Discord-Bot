@@ -18,14 +18,14 @@ class FunCog(commands.Cog, name="Fun Commands", description="These commands"
 	@commands.command(name='tag', help='Tags a user if you are it. '
 								  'Ex: !tag @Atom')
 	async def tag_command(self, ctx, user: discord.User):
-		with open(r'~/config/tag.json', 'r') \
+		with open(r'/app/config/tag.json', 'r') \
 				as file:
 			it = json.load(file)
 		if ctx.author.id != it['it']:
 			await ctx.send('You are not it. <@' + str(it['it']) + '> is.')
 		else:
 			it['it'] = user.id
-			with open(r'/config/tag.json', 'w') as jsonWrite:
+			with open(r'/app/config/tag.json', 'w') as jsonWrite:
 				json.dump(it, jsonWrite, indent=4)
 			await ctx.send(user.name + " is now it!")
 
