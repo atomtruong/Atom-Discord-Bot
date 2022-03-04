@@ -8,7 +8,7 @@ from pretty_help import PrettyHelp, DefaultMenu
 
 load_dotenv()
 
-with open('config\config.json', 'r') as file:
+with open('config/config.json', 'r') as file:
     data = json.load(file)
 
 TOKEN = data["token"]
