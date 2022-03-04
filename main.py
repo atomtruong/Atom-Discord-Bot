@@ -56,7 +56,7 @@ async def on_message(message):
     print(f"Changed channel to {cmd_channel.mention}")
     if message.content.lower().startswith(data['prefix']):
         if message.channel.id == cmd_channel.id \
-                or message.channel.id == cmd_channel2:
+                or message.channel.id == cmd_channel2.id:
             await message.delete()
             await bot.process_commands(message)
         else:
