@@ -43,6 +43,22 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		await ctx.send(f'I have changed the announcement channel to '
 					   f'{self.bot.get_channel(channel)}')
 
+	# Command to set bot channel
+	@commands.command(name='setchannel')
+	@commands.has_permissions(administrator=True)
+	async def setchannel_command(self, ctx: commands.Context, channel: int = -1):
+		if channel == -1:
+			await ctx.send("Incorrect channel number.")
+			return
+		with open(r'/app/config/config.json', 'r') \
+				as file:
+			channel_file = json.load(file)
+		channel_file['channel'] = channel
+		with open(r'/app/config/config.json', 'w') as jsonWrite:
+			json.dump(channel_file, jsonWrite, indent=4)
+		await ctx.send(f'I have changed the bot channel to '
+					   f'{self.bot.get_channel(channel).mention}')
+
 
 def setup(bot):
 	bot.add_cog(AdminCog(bot))

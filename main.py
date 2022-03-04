@@ -54,29 +54,33 @@ async def on_message(message):
             await message.delete()
             await bot.process_commands(message)
         else:
-            await message.channel.send('Incorrect channel. Use in '
-                                       + cmd_channel.mention)
+            if message.content.lower().startswith(data['prefix'] + data['setchannel']):
+                await message.delete()
+                await bot.process_commands(message)
+            else:
+                await message.channel.send('Incorrect channel. Use in '
+                                           + cmd_channel.mention)
 
 
 async def called_once_every_tuesday(channel):
     global REMINDED
     channel = bot.get_channel(channel)
-    await channel.send(f"Weekly Reminder: tagged everyone. Meeting with TA!")
+    await channel.send(f"Weekly Reminder: @everyone. Meeting with TA!")
     REMINDED = True
 
 
-@tasks.loop(seconds=10)
+@tasks.loop(hours=5)
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    if now == 4:
+    if now == 1:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
                     as file:
                 announcement_channel = json.load(file)
             await called_once_every_tuesday \
                 (announcement_channel['announcementChannel'])
-            print("REMINDED is False")
+            print("Weekly Reminder: Sent")
     else:
         print(f"Fail {now}")
         REMINDED = False
