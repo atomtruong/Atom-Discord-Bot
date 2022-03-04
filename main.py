@@ -85,7 +85,7 @@ async def background_task():
                     as file:
                 announcement_channel = json.load(file)
             await called_once_every_tuesday \
-                (announcement_channel['announcementChannel'])
+                (announcement_channel['announcementChannel2'])
             print("Weekly Reminder: Sent")
     else:
         print(f"Fail {now}")
