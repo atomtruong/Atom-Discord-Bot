@@ -1,7 +1,9 @@
 import discord
 import json
+import asyncio
 
-from discord.ext import commands
+from datetime import date
+from discord.ext import tasks, commands
 
 
 class AdminCog(commands.Cog, name="Settings Commands", description="These "
@@ -39,6 +41,20 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(announcement_channel, jsonWrite, indent=4)
 		await ctx.send(f'I have changed the announcement channel to {channel}')
+
+	async def called_once_every_10second(self, channel: discord.TextChannel):
+		await channel.send("10Second")
+
+	@tasks.loop(seconds=10.0)
+	async def background_task(self):
+		now = date.today().weekday()
+		print(now)
+		with open(r'/app/config/config.json', 'r') \
+				as file:
+			announcement_channel = json.load(file)
+		await self.called_once_every_10second\
+			(announcement_channel['announcementChannel'])
+
 
 def setup(bot):
 	bot.add_cog(AdminCog(bot))
