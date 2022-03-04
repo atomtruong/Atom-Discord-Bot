@@ -4,6 +4,7 @@ import json
 from datetime import date
 
 from discord.ext import tasks, commands
+from discord.ext.commands import has_permissions
 from dotenv import load_dotenv
 from pretty_help import PrettyHelp, DefaultMenu
 
@@ -75,25 +76,26 @@ async def background_task():
                 announcement_channel = json.load(file)
             await called_once_every_tuesday \
                 (announcement_channel['announcementChannel'])
+            print("REMINDED is False")
     else:
         print(f"Fail {now}")
         REMINDED = False
 
 
 @bot.command(name='stopweekly')
-@bot.has_permissions(administrator=True)
+@has_permissions(administrator=True)
 async def stop_weekly_command(ctx):
     background_task.stop()
     ctx.send("Successfully stopped weekly reminder.")
 
 @bot.command(name='startweekly')
-@bot.has_permissions(administrator=True)
+@has_permissions(administrator=True)
 async def start_weekly_command(ctx):
     background_task.start()
     ctx.send("Successfully started weekly reminder.")
 
 @bot.command(name='resetremind')
-@bot.has_permissions(administrator=True)
+@has_permissions(administrator=True)
 async def reset_remind_command(ctx):
     global REMINDED
     REMINDED = False
