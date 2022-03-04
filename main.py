@@ -5,12 +5,10 @@ import json
 from discord.ext import commands
 from dotenv import load_dotenv
 from pretty_help import PrettyHelp, DefaultMenu
-from pathlib import Path
 
 load_dotenv()
 
-path = Path(__file__).parent / "/config/config.json"
-with open(path, 'r') as file:
+with open("/app/config/config.json", 'r') as file:
     data = json.load(file)
 
 TOKEN = data["token"]

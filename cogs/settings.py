@@ -3,7 +3,6 @@ import json
 import os
 
 from discord.ext import commands
-from pathlib import Path
 
 
 class SettingsCog(commands.Cog, name="Settings Commands", description="These "
@@ -17,7 +16,7 @@ class SettingsCog(commands.Cog, name="Settings Commands", description="These "
 										  '(!prefix) to get current prefix. '
 										  'Ex: !prefix ?')
 	async def prefix_command(self, ctx: commands.Context, user_prefix=''):
-		with open(r'/app/config.json', 'r') \
+		with open(r'/app/config/config.json', 'r') \
 				as file:
 			data = json.load(file)
 		if len(user_prefix) == 0:
