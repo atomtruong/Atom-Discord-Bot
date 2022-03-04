@@ -48,6 +48,8 @@ async def on_member_join(member):
 # Makes sure that the command is only used in #atom channel.
 @bot.event
 async def on_message(message):
+    with open("/app/config/config.json", 'r') as file:
+        data = json.load(file)
     cmd_channel = bot.get_channel(data['channel'])
     print(cmd_channel)
     if message.content.lower().startswith(data['prefix']):
