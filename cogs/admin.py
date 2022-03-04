@@ -53,7 +53,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			channel_file = json.load(file)
-		channel_file['channel'] = channel
+		channel_file['channel2'] = channel
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(channel_file, jsonWrite, indent=4)
 		await ctx.send(f'I have changed the bot channel to '

@@ -51,9 +51,11 @@ async def on_message(message):
     with open("/app/config/config.json", 'r') as file:
         data = json.load(file)
     cmd_channel = bot.get_channel(data['channel'])
-    print(cmd_channel)
+    cmd_channel2 = bot.get_channel(data['channel2'])
+    print("Changed channel to " + cmd_channel)
     if message.content.lower().startswith(data['prefix']):
-        if message.channel.id == cmd_channel.id:
+        if message.channel.id == cmd_channel.id \
+                or message.channel.id == cmd_channel2:
             await message.delete()
             await bot.process_commands(message)
         else:
@@ -62,7 +64,8 @@ async def on_message(message):
                 await bot.process_commands(message)
             else:
                 await message.channel.send('Incorrect channel. Use in '
-                                           + cmd_channel.mention)
+                                           + cmd_channel.mention + ' or ' +
+                                           cmd_channel2.mention)
 
 
 async def called_once_every_tuesday(channel):
