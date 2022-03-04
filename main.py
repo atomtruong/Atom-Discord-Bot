@@ -49,7 +49,7 @@ async def on_member_join(member):
 @bot.event
 async def on_message(message):
     cmd_channel = bot.get_channel(data['channel'])
-    print (cmd_channel)
+    print(cmd_channel)
     if message.content.lower().startswith(data['prefix']):
         if message.channel.id == cmd_channel.id:
             await message.delete()
