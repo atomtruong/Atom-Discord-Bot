@@ -54,7 +54,7 @@ async def on_message(message):
             await message.delete()
             await bot.process_commands(message)
         else:
-            if message.content.lower().startswith(data['prefix'] + data['setchannel']):
+            if message.content.lower().startswith(data['prefix'] + 'setchannel'):
                 await message.delete()
                 await bot.process_commands(message)
             else:
