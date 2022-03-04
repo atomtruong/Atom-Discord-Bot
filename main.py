@@ -56,7 +56,8 @@ async def on_message(message):
                                        + cmd_channel.mention)
 
 
-async def called_once_every_10second(channel: discord.TextChannel):
+async def called_once_every_10second(channel):
+    channel = bot.get_channel(channel)
     await channel.send("10Second")
 
 
