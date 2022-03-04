@@ -56,25 +56,28 @@ async def on_message(message):
                                        + cmd_channel.mention)
 
 
-async def called_once_every_10second(channel):
+async def called_once_every_tuesday(channel):
     channel = bot.get_channel(channel)
-    await channel.send("10Second")
+    print("Friday")
+    #await channel.send("10Second")
 
 
-#@tasks.loop(seconds=10.0)
-#async def background_task():
-#    now = date.today().weekday()
-#    print(now)
-#    with open(r'/app/config/config.json', 'r') \
-#            as file:
-#        announcement_channel = json.load(file)
-#    await called_once_every_10second \
-#        (announcement_channel['announcementChannel'])
+@tasks.loop(seconds=10)
+async def background_task():
+    now = date.today().weekday()
+    if now == 4:
+        with open(r'/app/config/config.json', 'r') \
+                as file:
+            announcement_channel = json.load(file)
+        await called_once_every_tuesday \
+            (announcement_channel['announcementChannel'])
+    else:
+        print(f"Fail {now}")
 
 
-#@bot.command(name='stop')
-#async def stop_command():
-#    background_task.stop()
+@bot.command(name='stop')
+async def stop_command(ctx):
+   background_task.stop()
 
 
 if __name__ == '__main__':
