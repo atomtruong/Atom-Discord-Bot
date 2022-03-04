@@ -29,7 +29,7 @@ class SettingsCog(commands.Cog, name="Settings Commands", description="These "
 			with open("config\config.json", "w") as jsonWrite:
 				json.dump(data, jsonWrite, indent=4)
 			await ctx.send(f'Prefix changed to: {user_prefix}')
-			bot.command_prefix = data['prefix']
+			self.bot.command_prefix = data['prefix']
 
 
 def setup(bot):
