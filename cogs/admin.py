@@ -40,7 +40,8 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		announcement_channel['announcementChannel'] = channel
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(announcement_channel, jsonWrite, indent=4)
-		await ctx.send(f'I have changed the announcement channel to {channel}')
+		await ctx.send(f'I have changed the announcement channel to '
+					   f'{self.bot.get_channel(channel)}')
 
 
 def setup(bot):
