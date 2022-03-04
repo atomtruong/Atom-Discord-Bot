@@ -32,7 +32,8 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 	# Command to set announcement channel
 	@commands.command(name='set_announcement_channel')
 	@commands.has_permissions(administrator=True)
-	async def set_announcement_channel_command(self, ctx: commands.Context, channel: discord.TextChannel):
+	async def set_announcement_channel_command(self, ctx: commands.Context,
+											   channel: int):
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			announcement_channel = json.load(file)
