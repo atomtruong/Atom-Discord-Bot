@@ -37,7 +37,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			announcement_channel = json.load(file)
-		announcement_channel['announcementChannel'] = channel
+		announcement_channel['announcementChannel2'] = channel
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(announcement_channel, jsonWrite, indent=4)
 		await ctx.send(f'I have changed the announcement channel to '
