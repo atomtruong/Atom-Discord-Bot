@@ -61,20 +61,20 @@ async def called_once_every_10second(channel):
     await channel.send("10Second")
 
 
-@tasks.loop(seconds=10.0)
-async def background_task():
-    now = date.today().weekday()
-    print(now)
-    with open(r'/app/config/config.json', 'r') \
-            as file:
-        announcement_channel = json.load(file)
-    await called_once_every_10second \
-        (announcement_channel['announcementChannel'])
+#@tasks.loop(seconds=10.0)
+#async def background_task():
+#    now = date.today().weekday()
+#    print(now)
+#    with open(r'/app/config/config.json', 'r') \
+#            as file:
+#        announcement_channel = json.load(file)
+#    await called_once_every_10second \
+#        (announcement_channel['announcementChannel'])
 
 
-@bot.command(name='stop')
-async def stop_command():
-    background_task.stop()
+#@bot.command(name='stop')
+#async def stop_command():
+#    background_task.stop()
 
 
 if __name__ == '__main__':
