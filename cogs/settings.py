@@ -3,6 +3,7 @@ import json
 import os
 
 from discord.ext import commands
+from pathlib import Path
 
 
 class SettingsCog(commands.Cog, name="Settings Commands", description="These "
