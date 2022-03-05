@@ -66,11 +66,18 @@ async def on_message(message):
                                            cmd_channel2.mention)
 
 
-async def called_once_every_tuesday(channel):
+async def weekly_call(channel, day):
     global REMINDED
     channel = bot.get_channel(channel)
-    await channel.send(f"Weekly Reminder: @everyone! Test TA Meeting Tomorrow."
-                       f"Today is Friday")
+    if day == 1:
+        await channel.send(f"Weekly Reminder: @everyone! "
+                           f"TA Meeting Tomorrow.")
+    elif day == 2:
+        await channel.send(f"Weekly Reminder: @everyone! "
+                           f"Meeting today! WAKE UP!")
+    elif day == 3:
+        await channel.send(f"Weekly Reminder: @everyone! "
+                           f"Meeting tonight at 9:00pm!")
     REMINDED = True
 
 
@@ -78,13 +85,20 @@ async def called_once_every_tuesday(channel):
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    if now == 1:
+    if now == 1 or now == 2 or now == 3:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
                     as file:
                 announcement_channel = json.load(file)
-            await called_once_every_tuesday \
-                (announcement_channel['announcementChannel2'])
+            if now == 1:
+                await weekly_call \
+                    (announcement_channel['announcementChannel2'], 1)
+            elif now == 2:
+                await weekly_call\
+                    (announcement_channel['announcementChannel2'], 2)
+            elif now == 3:
+                await weekly_call \
+                    (announcement_channel['announcementChannel2'], 3)
             print("Weekly Reminder: Sent")
     else:
         print(f"Fail day: {now}")
