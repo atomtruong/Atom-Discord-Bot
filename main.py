@@ -70,8 +70,6 @@ async def on_message(message):
                                                + cmd_channel.mention + ' or ' +
                                                cmd_channel2.mention)
 
-bot.run("TOKEN")
-
 
 async def weekly_call(channel, day):
     global REMINDED
