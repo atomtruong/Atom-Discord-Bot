@@ -40,12 +40,18 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			announcement_channel = json.load(file)
-		announcement_channel['announcementChannel2'] = channel
 		channel_message = self.bot.get_channel(announcement_channel[channel])
+		if self.bot.get_guild(announcement_channel['guild1']) == ctx.guild:
+			print("Private Guild")
+			announcement_channel['announcementChannel1'] = channel
+		elif self.bot.get_guild(announcement_channel['guild2']) == ctx.guild:
+			print("AI Annotations Guild")
+			announcement_channel['announcementChannel2'] = channel
+
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(announcement_channel, jsonWrite, indent=4)
 		await channel_message.send(f'I have changed the announcement channel to '
-					   f'{self.bot.get_channel(channel)}')
+								   f'{self.bot.get_channel(channel)}')
 
 	# Command to set bot channel
 	@commands.command(name='setchannel')
@@ -56,8 +62,13 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			channel_file = json.load(file)
-		channel_file['channel2'] = channel
 		channel_message = self.bot.get_channel(channel)
+		if self.bot.get_guild(channel_file['guild1']) == ctx.guild:
+			print("Private Guild")
+			channel_file['channel1'] = channel
+		elif self.bot.get_guild(channel_file['guild2'] == ctx.guild):
+			print("AI Annotation Guild")
+			channel_file['channel2'] = channel
 		print(f"Changed channel to {self.bot.get_channel(channel).mention}")
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(channel_file, jsonWrite, indent=4)

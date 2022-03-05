@@ -49,8 +49,6 @@ async def on_member_join(member):
 async def on_message(message):
     if message.guild is None and not message.author.bot:
         print(f"User DM ({message.author}): {message.content}")
-        if message.content == "!surprise":
-            await message.author.send("You a bitch too lol.")
     else:
         with open("/app/config/config.json", 'r') as file:
             data = json.load(file)
