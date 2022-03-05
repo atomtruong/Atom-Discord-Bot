@@ -15,10 +15,7 @@ with open("/app/config/config.json", 'r') as file:
 
 TOKEN = data["token"]
 GUILD = os.getenv('DISCORD_GUILD')
-REMINDED = []
-REMINDED[0] = True
-REMINDED[1] = True
-REMINDED[2] = True
+REMINDED = [True, True, True]
 
 bot = commands.Bot(command_prefix=data['prefix'], help_command=PrettyHelp())
 
