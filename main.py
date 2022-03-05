@@ -15,7 +15,10 @@ with open("/app/config/config.json", 'r') as file:
 
 TOKEN = data["token"]
 GUILD = os.getenv('DISCORD_GUILD')
-REMINDED = True
+REMINDED = []
+REMINDED[0] = True
+REMINDED[1] = True
+REMINDED[2] = True
 
 bot = commands.Bot(command_prefix=data['prefix'], help_command=PrettyHelp())
 
@@ -69,42 +72,44 @@ async def on_message(message):
 async def weekly_call(channel, day):
     global REMINDED
     channel = bot.get_channel(channel)
-    if day == 1:
+    if day == "Tuesday":
         await channel.send(f"Weekly Reminder: @everyone! "
                            f"TA Meeting Tomorrow.")
-    elif day == 2:
+        REMINDED[0] = True
+    elif day == "Wednesday":
         await channel.send(f"Weekly Reminder: @everyone! "
                            f"Meeting today! WAKE UP!")
-    elif day == 3:
+        REMINDED[1] = True
+    elif day == "Thursday":
         await channel.send(f"Weekly Reminder: @everyone! "
                            f"Meeting tonight at 9:00pm!")
-    REMINDED = True
+        REMINDED[2] = True
 
 
 @tasks.loop(hours=5)
 async def background_task():
     global REMINDED
-    now = date.today().weekday()
-    print(date.today().strftime('%A'))
+    now = date.today().strftime('%A')
+    print(REMINDED[0], REMINDED[1], REMINDED[2])
 
-    if now == 1 or now == 2 or now == 3:
-        if REMINDED is False:
+    if now == 'Tuesday' or now == 'Wednesday' or now == 'Thursday':
+        if not REMINDED[0] or not REMINDED[1] or not REMINDED[2]:
             with open(r'/app/config/config.json', 'r') \
                     as file:
                 announcement_channel = json.load(file)
-            if now == 1:
+            if now == 'Tuesday' and not REMINDED[0]:
                 await weekly_call \
-                    (announcement_channel['announcementChannel2'], 1)
-            elif now == 2:
+                    (announcement_channel['announcementChannel2'], now)
+            elif now == 'Wednesday' and not REMINDED[1]:
                 await weekly_call\
-                    (announcement_channel['announcementChannel2'], 2)
-            elif now == 3:
+                    (announcement_channel['announcementChannel2'], now)
+            elif now == 'Thursday' and not REMINDED[2]:
                 await weekly_call \
-                    (announcement_channel['announcementChannel2'], 3)
+                    (announcement_channel['announcementChannel2'], now)
             print("Weekly Reminder: Sent")
     else:
         print(f"Fail day: {now}")
-        REMINDED = False
+        REMINDED[0], REMINDED[1], REMINDED[2] = False
 
 
 @bot.command(name='stopweekly')
