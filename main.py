@@ -29,7 +29,7 @@ async def on_ready():
         if guild.name == GUILD:
             break
 
-    for guilds in guild:
+    for guild in bot.guilds:
         print(
             f'{bot.user} is connected to the following guilds:\n'
             f'{guild.name}(id: {guild.id})'
@@ -53,7 +53,6 @@ async def on_message(message):
         data = json.load(file)
     cmd_channel = bot.get_channel(data['channel'])
     cmd_channel2 = bot.get_channel(data['channel2'])
-    print(f"Changed channel to {cmd_channel.mention}")
     if message.content.lower().startswith(data['prefix']):
         if message.channel.id == cmd_channel.id \
                 or message.channel.id == cmd_channel2.id:
@@ -80,7 +79,7 @@ async def called_once_every_tuesday(channel):
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    if now == 4:
+    if now == 5:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
                     as file:
