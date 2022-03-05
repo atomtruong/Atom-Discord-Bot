@@ -25,8 +25,8 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		if user is None or message is None:
 			return
 		else:
-			print(f"Log: Admin {ctx.author} sent DM to {user} saying "
-				  f"{message}")
+			print(f'Log: Admin {ctx.author} sent DM to {user} saying "'
+				  f'{message}"')
 			await user.send(message)
 
 	# Command to set announcement channel

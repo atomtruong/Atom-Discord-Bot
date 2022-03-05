@@ -48,8 +48,7 @@ async def on_member_join(member):
 @bot.event
 async def on_message(message):
     if message.guild is None and not message.author.bot:
-        print(f"User DM: {message.author.name}({message.author.id}) "
-              f"{message.content}")
+        print(f"User DM ({message.author}): {message.content}")
     else:
         with open("/app/config/config.json", 'r') as file:
             data = json.load(file)
