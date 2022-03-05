@@ -47,8 +47,8 @@ async def on_member_join(member):
 # Makes sure that the command is only used in #atom channel.
 @bot.event
 async def on_message(message):
-    if message.guild is None:
-        print(f"User DM: {message.content}")
+    if message.guild is None and not message.author.bot:
+        print(f"{message.author.mention} User DM: {message.content}")
     else:
         with open("/app/config/config.json", 'r') as file:
             data = json.load(file)
