@@ -1,7 +1,6 @@
 import discord
 import os
 import json
-import calender
 
 from datetime import date
 from discord.ext import tasks, commands
@@ -86,8 +85,8 @@ async def weekly_call(channel, day):
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    curr_date = calender.day_name[now]
-    print(curr_date)
+    print(date.today().strftime('%A'))
+
     if now == 1 or now == 2 or now == 3:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
