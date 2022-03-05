@@ -47,23 +47,26 @@ async def on_member_join(member):
 # Makes sure that the command is only used in #atom channel.
 @bot.event
 async def on_message(message):
-    with open("/app/config/config.json", 'r') as file:
-        data = json.load(file)
-    cmd_channel = bot.get_channel(data['channel'])
-    cmd_channel2 = bot.get_channel(data['channel2'])
-    if message.content.lower().startswith(data['prefix']):
-        if message.channel.id == cmd_channel.id \
-                or message.channel.id == cmd_channel2.id:
-            await message.delete()
-            await bot.process_commands(message)
-        else:
-            if message.content.lower().startswith(data['prefix'] + 'setchannel'):
+    if message.guild is None:
+        print(f"User DM: {message}")
+    else:
+        with open("/app/config/config.json", 'r') as file:
+            data = json.load(file)
+        cmd_channel = bot.get_channel(data['channel'])
+        cmd_channel2 = bot.get_channel(data['channel2'])
+        if message.content.lower().startswith(data['prefix']):
+            if message.channel.id == cmd_channel.id \
+                    or message.channel.id == cmd_channel2.id:
                 await message.delete()
                 await bot.process_commands(message)
             else:
-                await message.channel.send('Incorrect channel. Use in '
-                                           + cmd_channel.mention + ' or ' +
-                                           cmd_channel2.mention)
+                if message.content.lower().startswith(data['prefix'] + 'setchannel'):
+                    await message.delete()
+                    await bot.process_commands(message)
+                else:
+                    await message.channel.send('Incorrect channel. Use in '
+                                               + cmd_channel.mention + ' or ' +
+                                               cmd_channel2.mention)
 
 
 async def weekly_call(channel, day):
@@ -87,7 +90,6 @@ async def weekly_call(channel, day):
 async def background_task():
     global REMINDED
     now = date.today().strftime('%A')
-    print(REMINDED[0], REMINDED[1], REMINDED[2])
 
     if now == 'Tuesday' or now == 'Wednesday' or now == 'Thursday':
         if not REMINDED[0] or not REMINDED[1] or not REMINDED[2]:
@@ -107,7 +109,6 @@ async def background_task():
     else:
         print(f"Fail day: {now}")
         REMINDED[0] = REMINDED[1] = REMINDED[2] = False
-        print(REMINDED[0], REMINDED[1], REMINDED[2])
 
 
 @bot.command(name='stopweekly')
