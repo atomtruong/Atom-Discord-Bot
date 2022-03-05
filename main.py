@@ -41,7 +41,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(data['welcomeChannel'])
+    channel = bot.get_channel(data['welcomeChannel1'])
     await channel.send(f"Welcome to our server {member.mention}!")
 
 # Makes sure that the command is only used in #atom channel.
@@ -52,11 +52,11 @@ async def on_message(message):
     else:
         with open("/app/config/config.json", 'r') as file:
             data = json.load(file)
-        cmd_channel = bot.get_channel(data['channel'])
+        cmd_channel1 = bot.get_channel(data['channel1'])
         cmd_channel2 = bot.get_channel(data['channel2'])
         if message.content.lower().startswith(data['prefix']):
-            if message.channel.id == cmd_channel.id \
-                    or message.channel.id == cmd_channel2.id:
+            if message.channel1.id == cmd_channel1.id \
+                    or message.channel1.id == cmd_channel2.id:
                 await message.delete()
                 await bot.process_commands(message)
             else:
@@ -65,7 +65,7 @@ async def on_message(message):
                     await bot.process_commands(message)
                 else:
                     await message.channel.send('Incorrect channel. Use in '
-                                               + cmd_channel.mention + ' or ' +
+                                               + cmd_channel1.mention + ' or ' +
                                                cmd_channel2.mention)
 
 

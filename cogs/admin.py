@@ -70,9 +70,9 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		elif self.bot.get_guild(channel_file['guild2']) == ctx.guild:
 			print("AI Annotation Guild")
 			channel_file['channel2'] = channel
-		print(f"Changed channel to {self.bot.get_channel(channel).mention}")
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(channel_file, jsonWrite, indent=4)
+		print(f"Changed channel to {self.bot.get_channel(channel).mention}")
 		await channel_message.send(f'I have changed the bot channel to '
 					   f'{self.bot.get_channel(channel).mention}')
 
@@ -83,10 +83,10 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'r') \
 				as file:
 			data = json.load(file)
-		cmd_channel = self.bot.get_channel(data['channel'])
+		cmd_channel1 = self.bot.get_channel(data['channel1'])
 		cmd_channel2 = self.bot.get_channel(data['channel2'])
 
-		await ctx.send(f"The bot currently works for channels: {cmd_channel.mention}"
+		await ctx.send(f"The bot currently works for channels: {cmd_channel1.mention}"
 				 f" and {cmd_channel2.mention}")
 
 
