@@ -52,7 +52,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(announcement_channel, jsonWrite, indent=4)
 		await channel_message.send(f'I have changed the announcement channel to '
-								   f'{self.bot.get_channel(channel)}')
+								   f'{self.bot.get_channel(channel).mention}')
 
 	# Command to set bot channel
 	@commands.command(name='setchannel')
@@ -74,7 +74,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 			json.dump(channel_file, jsonWrite, indent=4)
 		print(f"Changed channel to {self.bot.get_channel(channel).name}")
 		await channel_message.send(f'I have changed the bot channel to '
-					   f'{self.bot.get_channel(channel).name}')
+					   f'{self.bot.get_channel(channel).mention}')
 
 	# Command to get the current bot channels
 	@commands.command(name='showbotchannels')
