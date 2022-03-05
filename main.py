@@ -71,7 +71,8 @@ async def on_message(message):
 async def called_once_every_tuesday(channel):
     global REMINDED
     channel = bot.get_channel(channel)
-    await channel.send(f"Weekly Reminder: @everyone TEST. Today is a Friday.")
+    await channel.send(f"Weekly Reminder: @everyone! Test TA Meeting Tomorrow."
+                       f"Today is Friday")
     REMINDED = True
 
 

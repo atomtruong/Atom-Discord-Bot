@@ -54,10 +54,11 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 				as file:
 			channel_file = json.load(file)
 		channel_file['channel2'] = channel
+		channel_message = self.bot.get_channel(channel_file['channel2'])
 		print(f"Changed channel to {self.bot.get_channel(channel).mention}")
 		with open(r'/app/config/config.json', 'w') as jsonWrite:
 			json.dump(channel_file, jsonWrite, indent=4)
-		await ctx.send(f'I have changed the bot channel to '
+		await channel_message.send(f'I have changed the bot channel to '
 					   f'{self.bot.get_channel(channel).mention}')
 
 
