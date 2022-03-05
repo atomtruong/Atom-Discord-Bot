@@ -52,7 +52,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 	@commands.has_permissions(administrator=True)
 	async def setchannel_command(self, ctx: commands.Context, channel: int = -1):
 		if channel == -1:
-			channel = ctx.channel.name()
+			channel = ctx.channel.id()
 			print(channel)
 		with open(r'/app/config/config.json', 'r') \
 				as file:
