@@ -1,12 +1,12 @@
 {
-    "token": "ODcxNTI3NjkyMDM2NjMyNTg3.YQcnaQ.Htsw1UrCH0fcLS0aWAC5pXhSZ0Y",
+    "token": "ENTER_TOKEN_HERE",
     "prefix": "!",
-    "channel1": 871533608542810132,
-    "channel2": 949446383654555670,
-    "welcomeChannel1": 339622800060841986,
-    "welcomeChannel2": 339622800060841986,
-    "announcementChannel1": 871533608542810132,
-    "announcementChannel2": 935977080678653962,
-    "guild1": 339622800060841986,
-    "guild2": 895448201048502282
+    "channel1": ENTER_HERE,
+    "channel2": ENTER_HERE,
+    "welcomeChannel1": ENTER_HERE,
+    "welcomeChannel2": ENTER_HERE,
+    "announcementChannel1": ENTER_HERE,
+    "announcementChannel2": ENTER_HERE,
+    "guild1": ENTER_HERE,
+    "guild2": ENTER_HERE
 }
