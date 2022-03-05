@@ -29,7 +29,7 @@ async def on_ready():
         if guild.name == GUILD:
             break
 
-    f'{bot.user} is connected to the following guilds:\n'
+    print(f'{bot.user} is connected to the following guilds:')
     for guild in bot.guilds:
         print(f'{guild.name}(id: {guild.id})')
 
