@@ -107,6 +107,7 @@ async def background_task():
     else:
         print(f"Fail day: {now}")
         REMINDED[0] = REMINDED[1] = REMINDED[2] = False
+        print(REMINDED[0], REMINDED[1], REMINDED[2])
 
 
 @bot.command(name='stopweekly')
