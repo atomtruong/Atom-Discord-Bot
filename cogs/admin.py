@@ -41,6 +41,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 				as file:
 			announcement_channel = json.load(file)
 		channel_message = self.bot.get_channel(announcement_channel[channel])
+		print(ctx.guild)
 		if self.bot.get_guild(announcement_channel['guild1']) == ctx.guild:
 			print("Private Guild")
 			announcement_channel['announcementChannel1'] = channel
@@ -66,7 +67,7 @@ class AdminCog(commands.Cog, name="Settings Commands", description="These "
 		if self.bot.get_guild(channel_file['guild1']) == ctx.guild:
 			print("Private Guild")
 			channel_file['channel1'] = channel
-		elif self.bot.get_guild(channel_file['guild2'] == ctx.guild):
+		elif self.bot.get_guild(channel_file['guild2']) == ctx.guild:
 			print("AI Annotation Guild")
 			channel_file['channel2'] = channel
 		print(f"Changed channel to {self.bot.get_channel(channel).mention}")
