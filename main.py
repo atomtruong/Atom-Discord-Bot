@@ -15,7 +15,7 @@ with open("/app/config/config.json", 'r') as file:
 
 TOKEN = data["token"]
 GUILD = os.getenv('DISCORD_GUILD')
-REMINDED = False
+REMINDED = True
 
 bot = commands.Bot(command_prefix=data['prefix'], help_command=PrettyHelp())
 
@@ -29,11 +29,9 @@ async def on_ready():
         if guild.name == GUILD:
             break
 
+    f'{bot.user} is connected to the following guilds:\n'
     for guild in bot.guilds:
-        print(
-            f'{bot.user} is connected to the following guilds:\n'
-            f'{guild.name}(id: {guild.id})'
-        )
+        print(f'{guild.name}(id: {guild.id})')
 
     await bot.change_presence(
         activity=discord.Game(name="Python Bot Simulator")
@@ -80,7 +78,7 @@ async def called_once_every_tuesday(channel):
 async def background_task():
     global REMINDED
     now = date.today().weekday()
-    if now == 5:
+    if now == 1:
         if REMINDED is False:
             with open(r'/app/config/config.json', 'r') \
                     as file:
@@ -89,7 +87,7 @@ async def background_task():
                 (announcement_channel['announcementChannel2'])
             print("Weekly Reminder: Sent")
     else:
-        print(f"Fail {now}")
+        print(f"Fail day: {now}")
         REMINDED = False
 
 
