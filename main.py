@@ -55,8 +55,8 @@ async def on_message(message):
         cmd_channel1 = bot.get_channel(data['channel1'])
         cmd_channel2 = bot.get_channel(data['channel2'])
         if message.content.lower().startswith(data['prefix']):
-            if message.channel1.id == cmd_channel1.id \
-                    or message.channel1.id == cmd_channel2.id:
+            if message.channel.id == cmd_channel1.id \
+                    or message.channel.id == cmd_channel2.id:
                 await message.delete()
                 await bot.process_commands(message)
             else:
