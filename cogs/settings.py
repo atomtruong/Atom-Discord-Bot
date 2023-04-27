@@ -1,6 +1,5 @@
 import discord
 import json
-import os
 
 from discord.ext import commands
 
@@ -16,7 +15,7 @@ class SettingsCog(commands.Cog, name="Settings Commands", description="These "
 										  '(!prefix) to get current prefix. '
 										  'Ex: !prefix ?')
 	async def prefix_command(self, ctx: commands.Context, user_prefix=''):
-		with open(r'C:\Users\Adam\PycharmProjects\Atom\config\config.json', 'r') \
+		with open(r'/app/config/config.json', 'r') \
 				as file:
 			data = json.load(file)
 		if len(user_prefix) == 0:
@@ -26,7 +25,7 @@ class SettingsCog(commands.Cog, name="Settings Commands", description="These "
 			await ctx.send(error)
 		else:
 			data['prefix'] = user_prefix
-			with open("config\config.json", "w") as jsonWrite:
+			with open("/app/config/config.json", "w") as jsonWrite:
 				json.dump(data, jsonWrite, indent=4)
 			await ctx.send(f'Prefix changed to: {user_prefix}')
 			self.bot.command_prefix = data['prefix']
