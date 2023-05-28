@@ -8,4 +8,5 @@ Discord bot with various features.
 * Dice Roll: Roll a dice 1-6
 * Guess The Dice: Guess the dice number
 * Check weather by city
+* Heroku-GitHub integration for seamless updates and low downtime
 * And much more unlisted features!
